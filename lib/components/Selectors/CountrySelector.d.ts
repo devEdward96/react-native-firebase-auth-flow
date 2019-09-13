@@ -7,7 +7,13 @@ declare class CountrySelector extends React.PureComponent<{
     state: {
         searchKeyword: string;
         visible: boolean;
+        loading: boolean;
     };
+    componentDidUpdate(prevProps: Readonly<{
+        visible: boolean;
+        onChange: any;
+        onClose: any;
+    }>, prevState: Readonly<{}>, snapshot?: any): void;
     render(): JSX.Element;
 }
 export default CountrySelector;

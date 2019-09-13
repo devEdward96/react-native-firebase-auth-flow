@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, KeyboardAvoidingView, Platform, NativeModules, StatusBar, Keyboard } from 'react-native';
+import { View, KeyboardAvoidingView, Dimensions, Platform, NativeModules, StatusBar, Keyboard } from 'react-native';
 import posed from 'react-native-pose';
 import { Snackbar } from 'react-native-paper';
 import { Firebase, RNFirebase } from 'react-native-firebase';
@@ -109,7 +109,7 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
     return (
       <View
         style={{
-          height: 600,
+          height: Dimensions.get('window').height * 0.7,
           backgroundColor: this.props.theme.colors.primary,
         }}
       >
@@ -146,8 +146,8 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
               </AnimatedHeaderWithCover>
               <AnimatedHeaderWithActions
                 style={{
-                  height: focusToPhoneInput || openSignInWithAnotherMethods ? 60 : 0,
-                  marginTop: focusToPhoneInput || openSignInWithAnotherMethods ? 48 : 0,
+                  height: focusToPhoneInput || openSignInWithAnotherMethods ? 36 : 0,
+                  marginTop: focusToPhoneInput || openSignInWithAnotherMethods ? (Platform.OS === 'ios' ? 48 : 12) : 0,
                 }}
                 pose={focusToPhoneInput || openSignInWithAnotherMethods ? 'visible' : 'hidden'}
               >
@@ -160,12 +160,13 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
               <KeyboardAvoidingView
                 style={{ flex: 1 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
-                enabled
+                enabled={Platform.OS === 'ios'}
               >
                 <Styled.SignIn.GetStarted>
                   {!openSignInWithAnotherMethods && (
                     <EnterPhoneNumberStep
                       authStep={authStep}
+                      theme={theme}
                       onSignInWithAnotherMethods={() =>
                         this.setState({ openSignInWithAnotherMethods: true, focusToPhoneInput: false })
                       }
@@ -183,11 +184,16 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
                   )}
                   {!openSignInWithAnotherMethods && <UserInformationStep authStep={authStep} AUTH_STEPS={AUTH_STEPS} />}
                   {focusToPhoneInput && (
-                    <SubmitButton AUTH_STEPS={AUTH_STEPS} authStep={authStep} onNextAuthStep={this.onNextAuthStep} />
+                    <SubmitButton
+                      theme={theme}
+                      AUTH_STEPS={AUTH_STEPS}
+                      authStep={authStep}
+                      onNextAuthStep={this.onNextAuthStep}
+                    />
                   )}
                   <AnimatedSignInWithAnotherMethods pose={openSignInWithAnotherMethods ? 'visible' : 'hidden'}>
                     {openSignInWithAnotherMethods && (
-                      <SignInWithAnotherMethods signUpKeyboardOffset={signUpKeyboardOffset} />
+                      <SignInWithAnotherMethods theme={theme} signUpKeyboardOffset={signUpKeyboardOffset} />
                     )}
                   </AnimatedSignInWithAnotherMethods>
                 </Styled.SignIn.GetStarted>

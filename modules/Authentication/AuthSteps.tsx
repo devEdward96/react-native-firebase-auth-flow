@@ -11,11 +11,13 @@ const AnimatedAuthStepContainer = posed.View({
 
 export const EnterPhoneNumberStep = ({
   authStep,
+  theme,
   onSetFocusToPhoneInput,
   onSignInWithAnotherMethods,
   AUTH_STEPS,
 }: {
   authStep: string;
+  theme: any;
   onSetFocusToPhoneInput: any;
   onSignInWithAnotherMethods: any;
   AUTH_STEPS: any;
@@ -26,6 +28,7 @@ export const EnterPhoneNumberStep = ({
       pose={authStep === AUTH_STEPS.ENTER_PHONE_NUMBER ? 'visible' : 'hidden'}
     >
       <SignInWithPhone
+        theme={theme}
         onSignInWithAnotherMethods={onSignInWithAnotherMethods}
         onInputFocus={() => onSetFocusToPhoneInput(true)}
       />

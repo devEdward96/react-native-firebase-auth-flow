@@ -2,6 +2,7 @@ import React from 'react';
 import { AuthContextInterface } from '../../contexts/AuthContext';
 export default class SignInWithPhone extends React.PureComponent<{
     onInputFocus: any;
+    theme: any;
     onSignInWithAnotherMethods: any;
 }> {
     phoneInputRef: any;

@@ -1,5 +1,6 @@
-export declare const EnterPhoneNumberStep: ({ authStep, onSetFocusToPhoneInput, onSignInWithAnotherMethods, AUTH_STEPS, }: {
+export declare const EnterPhoneNumberStep: ({ authStep, theme, onSetFocusToPhoneInput, onSignInWithAnotherMethods, AUTH_STEPS, }: {
     authStep: string;
+    theme: any;
     onSetFocusToPhoneInput: any;
     onSignInWithAnotherMethods: any;
     AUTH_STEPS: any;

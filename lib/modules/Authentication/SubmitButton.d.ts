@@ -4,6 +4,7 @@ interface BaseProps {
     authStep: string;
     AUTH_STEPS: any;
     onNextAuthStep: any;
+    theme: any;
 }
 declare class SubmitButton extends React.PureComponent<BaseProps> {
     static contextType: React.Context<AuthContextInterface>;

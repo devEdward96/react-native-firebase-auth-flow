@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, View, ScrollView, Image } from 'react-native';
 import Country from 'react-native-phone-input/lib/country';
 import Flag from 'react-native-phone-input/lib/resources/flags';
+import { ActivityIndicator } from 'react-native-paper';
 import Modal from 'react-native-modalbox';
 import groupBy from 'lodash/groupBy';
 import Styled from './Styled';
@@ -40,12 +41,31 @@ class CountrySelector extends React.PureComponent<{ visible: boolean; onChange: 
   state = {
     searchKeyword: '',
     visible: false,
+    loading: true,
   };
+
+  componentDidUpdate(
+    prevProps: Readonly<{ visible: boolean; onChange: any; onClose: any }>,
+    prevState: Readonly<{}>,
+    snapshot?: any,
+  ): void {
+    if (!prevProps.visible && this.props.visible) {
+      setTimeout(() => {
+        this.setState({ loading: false });
+      }, 1000);
+    }
+    if (prevProps.visible && !this.props.visible) {
+      setTimeout(() => {
+        this.setState({ loading: true });
+      }, 1000);
+    }
+  }
 
   render() {
     const { searchKeyword } = this.state;
     const { visible, onChange, onClose } = this.props;
-    let groupedCountries: any = groupBy(Country.getAll(), o => o.name[0].toUpperCase());
+    let groupedCountries: any = [];
+    groupedCountries = groupBy(Country.getAll(), o => o.name[0].toUpperCase());
     groupedCountries = Object.keys(groupedCountries).map(letter => {
       return {
         letter,
@@ -78,23 +98,30 @@ class CountrySelector extends React.PureComponent<{ visible: boolean; onChange: 
               }}
             />
           </View>
-          <ScrollView keyboardShouldPersistTaps={'handled'}>
-            <FlatList
-              removeClippedSubviews={true}
-              data={
-                searchKeyword
-                  ? groupedCountries.filter(
-                      group => searchKeyword.toLowerCase().indexOf(group.letter.toLowerCase()) > -1,
-                    )
-                  : groupedCountries
-              }
-              keyExtractor={item => item.letter}
-              renderItem={({ item }: { item: any }) => (
-                <GroupCountries onSelect={onChange} letter={item.letter} countries={item.countries} />
-              )}
-            />
-            <View style={{ height: 160 }} />
-          </ScrollView>
+          {this.state.loading && (
+            <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1, marginTop: 100 }}>
+              <ActivityIndicator />
+            </View>
+          )}
+          {!this.state.loading && (
+            <ScrollView keyboardShouldPersistTaps={'handled'}>
+              <FlatList
+                removeClippedSubviews={true}
+                data={
+                  searchKeyword
+                    ? groupedCountries.filter(
+                        group => searchKeyword.toLowerCase().indexOf(group.letter.toLowerCase()) > -1,
+                      )
+                    : groupedCountries
+                }
+                keyExtractor={item => item.letter}
+                renderItem={({ item }: { item: any }) => (
+                  <GroupCountries onSelect={onChange} letter={item.letter} countries={item.countries} />
+                )}
+              />
+              <View style={{ height: 160 }} />
+            </ScrollView>
+          )}
         </Styled.CountrySelector.Container>
       </Modal>
     );

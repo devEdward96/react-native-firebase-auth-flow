@@ -8,6 +8,7 @@ import EmailPasswordSignUpForm from './EmailPasswordSignUpForm';
 
 interface BaseProps {
   testId?: string;
+  theme: any;
   signUpKeyboardOffset?: number;
 }
 
@@ -21,18 +22,17 @@ const SignInWithAnotherMethods = (props: BaseProps) => {
       >
         <ScrollView keyboardShouldPersistTaps={'handled'}>
           <Styled.SignInWithAnotherMethods.SignIn>
-            <EmailPasswordSignInForm />
+            <EmailPasswordSignInForm theme={props.theme} />
           </Styled.SignInWithAnotherMethods.SignIn>
         </ScrollView>
         <ScrollView keyboardShouldPersistTaps={'handled'}>
           <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'position' : 'position'}
-            enabled
+            behavior={Platform.OS === 'ios' ? 'position' : 'padding'}
             keyboardVerticalOffset={props.signUpKeyboardOffset || 120}
           >
             <Styled.SignInWithAnotherMethods.SignUp>
-              <EmailPasswordSignUpForm />
+              <EmailPasswordSignUpForm theme={props.theme} />
             </Styled.SignInWithAnotherMethods.SignUp>
           </KeyboardAvoidingView>
         </ScrollView>

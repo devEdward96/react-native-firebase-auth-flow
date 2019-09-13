@@ -14,7 +14,7 @@ interface LoginFormValues {
   password: string;
 }
 
-class EmailPasswordSignInForm extends React.PureComponent {
+class EmailPasswordSignInForm extends React.PureComponent<{ theme: any }> {
   static contextType = AuthContext;
   context: AuthContextInterface;
 

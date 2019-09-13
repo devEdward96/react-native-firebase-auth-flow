@@ -9,6 +9,7 @@ interface BaseProps {
   authStep: string;
   AUTH_STEPS: any;
   onNextAuthStep: any;
+  theme: any;
 }
 
 class SubmitButton extends React.PureComponent<BaseProps> {
@@ -37,7 +38,10 @@ class SubmitButton extends React.PureComponent<BaseProps> {
       <Styled.SignIn.Actions>
         <AuthStepDescription authStep={this.props.authStep} AUTH_STEPS={this.props.AUTH_STEPS} />
         <Styled.SignIn.NextButtonWrapper>
-          <Styled.SignIn.NextButton onPress={this.onSubmit}>
+          <Styled.SignIn.NextButton
+            onPress={this.onSubmit}
+            style={{ backgroundColor: this.props.theme.colors.primary }}
+          >
             <Styled.SignIn.NextButtonInner>
               {!completingStep && this.props.authStep !== this.props.AUTH_STEPS.USER_INFORMATION_CONFIRMATION && (
                 <Styled.SignIn.NextButtonIcon name={'arrow-right'} />

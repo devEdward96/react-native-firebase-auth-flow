@@ -11,6 +11,7 @@ import { AuthContext, AuthContextInterface } from '../../contexts/AuthContext';
 
 export default class SignInWithPhone extends React.PureComponent<{
   onInputFocus: any;
+  theme: any;
   onSignInWithAnotherMethods: any;
 }> {
   phoneInputRef;
@@ -38,7 +39,7 @@ export default class SignInWithPhone extends React.PureComponent<{
 
   render() {
     const { country, openCountrySelector, phoneNumber, fetchingCountry } = this.state;
-    const { onInputFocus, onSignInWithAnotherMethods } = this.props;
+    const { onInputFocus, onSignInWithAnotherMethods, theme } = this.props;
     return (
       <View>
         <Text medium size={16}>
@@ -88,7 +89,9 @@ export default class SignInWithPhone extends React.PureComponent<{
             </View>
           </Styled.SignIn.PhoneInputContent>
           <Styled.SignIn.LoginWithAnotherMethods underlayColor={'#f1f1f1'} onPress={onSignInWithAnotherMethods}>
-            <Text color={'blue'}>Or login with another methods</Text>
+            <Text color={'blue'} textProps={{ style: { color: theme.colors.primary } }}>
+              Or login with another methods
+            </Text>
           </Styled.SignIn.LoginWithAnotherMethods>
           <CountrySelector
             onChange={(ct: any) => {
