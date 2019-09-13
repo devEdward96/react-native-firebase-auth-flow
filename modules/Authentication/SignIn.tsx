@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, KeyboardAvoidingView, Platform, NativeModules, StatusBar, Keyboard } from 'react-native';
+import { ScrollView, View, KeyboardAvoidingView, Platform, NativeModules, Keyboard } from 'react-native';
 import posed from 'react-native-pose';
 import { Snackbar } from 'react-native-paper';
 import { Firebase, RNFirebase } from 'react-native-firebase';
@@ -119,11 +119,6 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
         <ThemeProvider theme={theme}>
           <AuthContextProvider firebase={firebase} onLoggedIn={onLoggedIn}>
             <ScrollView contentContainerStyle={{ flex: 1 }} keyboardShouldPersistTaps={'handled'}>
-              {Platform.OS === 'ios' && (
-                <StatusBar
-                  barStyle={!focusToPhoneInput && !openSignInWithAnotherMethods ? 'light-content' : 'dark-content'}
-                />
-              )}
               <AnimatedHeaderWithCover
                 pose={!focusToPhoneInput && !openSignInWithAnotherMethods ? 'visible' : 'hidden'}
               >
