@@ -22,6 +22,8 @@ interface SignInProps {
     firebase: Firebase;
     onLoggedIn: (user: RNFirebase.User) => void;
     theme: typeof defaultTheme;
+    signUpKeyboardOffset?: number;
+    onChangeStatusbarStyle?: any;
     brand?: React.ReactElement<any>;
 }
 interface SignInStates {
@@ -38,6 +40,7 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
         focusToPhoneInput: boolean;
         openSignInWithAnotherMethods: boolean;
     };
+    componentDidUpdate(prevProps: Readonly<SignInProps>, prevState: Readonly<SignInStates>, snapshot?: any): void;
     onNextAuthStep: () => void;
     onBackAuthStep: () => void;
     onRenderBrand: () => JSX.Element;

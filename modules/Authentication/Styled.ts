@@ -146,7 +146,7 @@ export default {
     width: 100%;
   `,
   EmailPasswordSignInForm: styled(View)`
-    margin-top: 40px;
+    margin-top: 20px;
   `,
   EmailPasswordSignInFormItem: styled(View)`
     margin: 10px 0;

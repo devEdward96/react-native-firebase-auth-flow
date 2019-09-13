@@ -8,6 +8,7 @@ import EmailPasswordSignUpForm from './EmailPasswordSignUpForm';
 
 interface BaseProps {
   testId?: string;
+  signUpKeyboardOffset?: number;
 }
 
 const SignInWithAnotherMethods = (props: BaseProps) => {
@@ -28,7 +29,7 @@ const SignInWithAnotherMethods = (props: BaseProps) => {
             style={{ flex: 1 }}
             behavior={Platform.OS === 'ios' ? 'position' : 'position'}
             enabled
-            keyboardVerticalOffset={120}
+            keyboardVerticalOffset={props.signUpKeyboardOffset || 120}
           >
             <Styled.SignInWithAnotherMethods.SignUp>
               <EmailPasswordSignUpForm />

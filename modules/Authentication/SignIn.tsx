@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, KeyboardAvoidingView, Platform, NativeModules, StatusBar, Keyboard } from 'react-native';
+import { View, KeyboardAvoidingView, Platform, NativeModules, StatusBar, Keyboard } from 'react-native';
 import posed from 'react-native-pose';
 import { Snackbar } from 'react-native-paper';
 import { Firebase, RNFirebase } from 'react-native-firebase';
@@ -53,6 +53,8 @@ interface SignInProps {
   firebase: Firebase;
   onLoggedIn: (user: RNFirebase.User) => void;
   theme: typeof defaultTheme;
+  signUpKeyboardOffset?: number;
+  onChangeStatusbarStyle?: any;
   brand?: React.ReactElement<any>;
 }
 
@@ -70,6 +72,19 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
     focusToPhoneInput: false,
     openSignInWithAnotherMethods: false,
   };
+
+  componentDidUpdate(prevProps: Readonly<SignInProps>, prevState: Readonly<SignInStates>, snapshot?: any): void {
+    if (!this.state.focusToPhoneInput && !this.state.openSignInWithAnotherMethods) {
+      if (this.props.onChangeStatusbarStyle) {
+        this.props.onChangeStatusbarStyle('light');
+      }
+    }
+    if (this.state.focusToPhoneInput || this.state.openSignInWithAnotherMethods) {
+      if (this.props.onChangeStatusbarStyle) {
+        this.props.onChangeStatusbarStyle('dark');
+      }
+    }
+  }
 
   onNextAuthStep = () => {
     const currentAuthStepIndex = Object.keys(AUTH_STEPS).findIndex(key => key === this.state.authStep);
@@ -105,7 +120,7 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
 
   render() {
     const { focusToPhoneInput, authStep, openSignInWithAnotherMethods } = this.state;
-    const { theme, firebase, onLoggedIn } = this.props;
+    const { theme, firebase, onLoggedIn, signUpKeyboardOffset } = this.props;
     return (
       <PaperProvider
         theme={{
@@ -118,7 +133,7 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
       >
         <ThemeProvider theme={theme}>
           <AuthContextProvider firebase={firebase} onLoggedIn={onLoggedIn}>
-            <ScrollView contentContainerStyle={{ flex: 1 }} keyboardShouldPersistTaps={'handled'}>
+            <View style={{ flex: 1 }}>
               {Platform.OS === 'ios' && (
                 <StatusBar
                   barStyle={!focusToPhoneInput && !openSignInWithAnotherMethods ? 'light-content' : 'dark-content'}
@@ -171,11 +186,13 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
                     <SubmitButton AUTH_STEPS={AUTH_STEPS} authStep={authStep} onNextAuthStep={this.onNextAuthStep} />
                   )}
                   <AnimatedSignInWithAnotherMethods pose={openSignInWithAnotherMethods ? 'visible' : 'hidden'}>
-                    {openSignInWithAnotherMethods && <SignInWithAnotherMethods />}
+                    {openSignInWithAnotherMethods && (
+                      <SignInWithAnotherMethods signUpKeyboardOffset={signUpKeyboardOffset} />
+                    )}
                   </AnimatedSignInWithAnotherMethods>
                 </Styled.SignIn.GetStarted>
               </KeyboardAvoidingView>
-            </ScrollView>
+            </View>
             <AuthContext.Consumer>
               {context => (
                 <Snackbar
