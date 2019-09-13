@@ -1,0 +1,1 @@
+{"version":3,"file":"Styled.js","sourceRoot":"","sources":["../../../components/Tabs/Styled.tsx"],"names":[],"mappings":";;;;AAAA,OAAO,MAAM,MAAM,mBAAmB,CAAC;AACvC,OAAO,EAAE,IAAI,EAAE,kBAAkB,EAAE,MAAM,cAAc,CAAC;AAExD,eAAe;IACb,UAAU,EAAE;QACV,SAAS,EAAE,MAAM,CAAC,IAAI,CAAC,6PAAA,0LAOtB,IAAA;QACD,MAAM,EAAE,MAAM,CAAC,kBAAkB,CAAC,4MAAA,yIAMjC,IAAA;KACF;CACF,CAAC"}
