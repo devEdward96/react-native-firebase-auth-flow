@@ -26,20 +26,20 @@ ios/
 android/
 configs/
 ./src/
-.buckconfig
-.flowconfig
-.watchmanconfig
-app.json
-babel.config.js
-index.js
-rn-cli.config.js
-template.config.js
-tsconfig.build.json
-tsconfig.json
-.prettierrc
-App.tsx
-yarn.lock
-README.md
+./.buckconfig
+./.flowconfig
+./.watchmanconfig
+./app.json
+./babel.config.js
+./index.js
+./rn-cli.config.js
+./template.config.js
+./tsconfig.build.json
+./tsconfig.json
+./.prettierrc
+./App.tsx
+./yarn.lock
+./README.md
 
 # Android/IntelliJ
 #
