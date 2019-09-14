@@ -149,7 +149,7 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
               <AnimatedHeaderWithActions
                 style={{
                   height: focusToPhoneInput || openSignInWithAnotherMethods ? 36 : 0,
-                  marginTop: focusToPhoneInput || openSignInWithAnotherMethods ? statusBarHeight : 48,
+                  marginTop: focusToPhoneInput || openSignInWithAnotherMethods ? statusBarHeight || 36 : 0,
                 }}
                 pose={focusToPhoneInput || openSignInWithAnotherMethods ? 'visible' : 'hidden'}
               >
