@@ -9,6 +9,7 @@ import EmailPasswordSignUpForm from './EmailPasswordSignUpForm';
 interface BaseProps {
   testId?: string;
   theme: any;
+  privacyUrl: string;
   signUpKeyboardOffset?: number;
 }
 
@@ -32,7 +33,7 @@ const SignInWithAnotherMethods = (props: BaseProps) => {
             keyboardVerticalOffset={props.signUpKeyboardOffset || 120}
           >
             <Styled.SignInWithAnotherMethods.SignUp>
-              <EmailPasswordSignUpForm theme={props.theme} />
+              <EmailPasswordSignUpForm privacyUrl={props.privacyUrl} theme={props.theme} />
             </Styled.SignInWithAnotherMethods.SignUp>
           </KeyboardAvoidingView>
         </ScrollView>

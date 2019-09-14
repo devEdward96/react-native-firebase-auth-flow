@@ -52,6 +52,16 @@ export const AuthContext = React.createContext<AuthContextInterface>({
   onSignIn: (signInData: SignInData) => Promise.resolve(signInData),
 });
 
+async function updateUsername(token: string) {
+  return fetch('https://asia-east2-ecobase-dev.cloudfunctions.net/api/username', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({}),
+  });
+}
+
 interface AuthProviderProps {
   firebase: Firebase;
   onLoggedIn: (user: RNFirebase.User) => void;
@@ -69,6 +79,10 @@ export class AuthProvider extends Component<AuthProviderProps> {
             displayName: `${this.signUpData.firstName} ${this.signUpData.lastName}`,
           });
           this.signUpData = null;
+          setTimeout(async () => {
+            const token = await this.props.firebase.auth().currentUser.getIdToken();
+            await updateUsername(token);
+          }, 1000);
           return this.props.onLoggedIn(this.props.firebase.auth().currentUser);
         }
         if (!user.displayName) return;
@@ -155,6 +169,10 @@ export class AuthProvider extends Component<AuthProviderProps> {
     await this.props.firebase
       .auth()
       .currentUser.updateProfile({ displayName: `${this.signUpData.firstName} ${this.signUpData.lastName}` });
+    setTimeout(async () => {
+      const token = await this.props.firebase.auth().currentUser.getIdToken();
+      await updateUsername(token);
+    }, 1000);
     setTimeout(() => {
       this.setState({
         completingStep: false,

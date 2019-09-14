@@ -152,12 +152,11 @@ export default {
     margin: 10px 0;
   `,
   TermsAndPrivacy: styled(View)`
+    width: 100%;
     margin-top: 5px;
     margin-bottom: 15px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
   `,
   EmailPasswordSignInButton: styled(TouchableHighlight)`
     height: 48px;

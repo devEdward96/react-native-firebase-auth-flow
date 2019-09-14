@@ -22,6 +22,7 @@ interface SignInProps {
     firebase: Firebase;
     onLoggedIn: (user: RNFirebase.User) => void;
     theme: typeof defaultTheme;
+    privacyUrl: string;
     signUpKeyboardOffset?: number;
     onChangeStatusbarStyle?: any;
     brand?: React.ReactElement<any>;

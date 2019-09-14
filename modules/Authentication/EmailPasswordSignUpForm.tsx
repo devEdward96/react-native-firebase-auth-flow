@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity, Linking } from 'react-native';
 import { Button } from 'react-native-paper';
 import * as Yup from 'yup';
 import { Formik, FormikProps, FormikActions } from 'formik';
@@ -15,7 +15,7 @@ interface RegisterFormValues {
   password: string;
 }
 
-class EmailPasswordSignInForm extends React.PureComponent<{ theme: any }> {
+class EmailPasswordSignInForm extends React.PureComponent<{ theme: any; privacyUrl: string }> {
   static contextType = AuthContext;
   context: AuthContextInterface;
 
@@ -69,10 +69,10 @@ class EmailPasswordSignInForm extends React.PureComponent<{ theme: any }> {
                 inputProps={{ secureTextEntry: true }}
               />
               <Styled.TermsAndPrivacy>
-                <Text color={'midGray'}>By sign up you already accepted our</Text>
-                <Text color={'blue'} textProps={{ style: { marginLeft: 3 } }}>
-                  Privacy Polices.
-                </Text>
+                <Text color={'midGray'}>By sign up you already accepted our By sign up you already accepted our</Text>
+                <TouchableOpacity onPress={() => Linking.openURL(this.props.privacyUrl)}>
+                  <Text color={'blue'}>Privacy Polices.</Text>
+                </TouchableOpacity>
               </Styled.TermsAndPrivacy>
               <Styled.EmailPasswordSignInFormItem style={{ alignItems: 'center' }}>
                 <Button

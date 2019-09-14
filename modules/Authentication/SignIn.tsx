@@ -53,6 +53,7 @@ interface SignInProps {
   firebase: Firebase;
   onLoggedIn: (user: RNFirebase.User) => void;
   theme: typeof defaultTheme;
+  privacyUrl: string;
   signUpKeyboardOffset?: number;
   onChangeStatusbarStyle?: any;
   brand?: React.ReactElement<any>;
@@ -120,7 +121,7 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
 
   render() {
     const { focusToPhoneInput, authStep, openSignInWithAnotherMethods } = this.state;
-    const { theme, firebase, onLoggedIn, signUpKeyboardOffset } = this.props;
+    const { theme, firebase, onLoggedIn, signUpKeyboardOffset, privacyUrl } = this.props;
     return (
       <PaperProvider
         theme={{
@@ -193,7 +194,11 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
                   )}
                   <AnimatedSignInWithAnotherMethods pose={openSignInWithAnotherMethods ? 'visible' : 'hidden'}>
                     {openSignInWithAnotherMethods && (
-                      <SignInWithAnotherMethods theme={theme} signUpKeyboardOffset={signUpKeyboardOffset} />
+                      <SignInWithAnotherMethods
+                        privacyUrl={privacyUrl}
+                        theme={theme}
+                        signUpKeyboardOffset={signUpKeyboardOffset}
+                      />
                     )}
                   </AnimatedSignInWithAnotherMethods>
                 </Styled.SignIn.GetStarted>
