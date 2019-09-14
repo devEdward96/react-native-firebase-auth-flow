@@ -54,6 +54,7 @@ interface SignInProps {
   onLoggedIn: (user: RNFirebase.User) => void;
   theme: typeof defaultTheme;
   privacyUrl: string;
+  statusBarHeight?: number;
   signUpKeyboardOffset?: number;
   onChangeStatusbarStyle?: any;
   brand?: React.ReactElement<any>;
@@ -121,7 +122,7 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
 
   render() {
     const { focusToPhoneInput, authStep, openSignInWithAnotherMethods } = this.state;
-    const { theme, firebase, onLoggedIn, signUpKeyboardOffset, privacyUrl } = this.props;
+    const { theme, firebase, onLoggedIn, signUpKeyboardOffset, privacyUrl, statusBarHeight } = this.props;
     return (
       <PaperProvider
         theme={{
@@ -148,7 +149,7 @@ export default class SignIn extends React.PureComponent<SignInProps, SignInState
               <AnimatedHeaderWithActions
                 style={{
                   height: focusToPhoneInput || openSignInWithAnotherMethods ? 36 : 0,
-                  marginTop: focusToPhoneInput || openSignInWithAnotherMethods ? (Platform.OS === 'ios' ? 48 : 12) : 0,
+                  marginTop: focusToPhoneInput || openSignInWithAnotherMethods ? statusBarHeight : 48,
                 }}
                 pose={focusToPhoneInput || openSignInWithAnotherMethods ? 'visible' : 'hidden'}
               >

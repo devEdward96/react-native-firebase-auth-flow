@@ -23,6 +23,7 @@ interface SignInProps {
     onLoggedIn: (user: RNFirebase.User) => void;
     theme: typeof defaultTheme;
     privacyUrl: string;
+    statusBarHeight?: number;
     signUpKeyboardOffset?: number;
     onChangeStatusbarStyle?: any;
     brand?: React.ReactElement<any>;
